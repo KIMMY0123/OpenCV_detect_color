@@ -15,7 +15,7 @@ def find_centroid(mask, frame, color_name, color_bgr):
                 cv2.circle(frame, (cx, cy), 5, color_bgr, -1)
                 cv2.putText(frame, f"{color_name} ({cx},{cy})", (cx + 10, cy), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color_bgr, 2)
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 if not cap.isOpened():
     print("cann't connected the camera")
@@ -28,42 +28,30 @@ while True:
         print("Unable to read images from camera")
         break
 
+#if you want to improve the quality of the image to make the color more accurate, 
+# you can add the + function in front of it again such as + cv2.inRange(hsv, lower_red2, upper_red2) etc.
+
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    lower_red1 = np.array([0, 120, 70])
-    upper_red1 = np.array([10, 255, 255])
+    lower_red1 = np.array([0, 94, 169])
+    upper_red1 = np.array([11, 255, 255])
     
-    # lower_red1 = np.array([1, 117, 255])
-    # upper_red1 = np.array([10, 255, 255])
-    
-    lower_red2 = np.array([170, 120, 70])
-    upper_red2 = np.array([180, 255, 255])
-    
-    mask1 = cv2.inRange(hsv, lower_red1, upper_red1) + cv2.inRange(hsv, lower_red2, upper_red2)
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
 # -----------------------------------------------
-    lower_grean1 = np.array([36, 50, 50])
-    upper_grean1 = np.array([70, 255, 255])
+    lower_grean1 = np.array([42, 94, 150])
+    upper_grean1 = np.array([79, 255, 255])
 
-    lower_green2 = np.array([70, 50, 50])
-    upper_green2 = np.array([86, 255, 255])
-   
-    mask2 = cv2.inRange(hsv, lower_grean1, upper_grean1) + cv2.inRange(hsv, lower_green2, upper_green2)
+    mask2 = cv2.inRange(hsv, lower_grean1, upper_grean1)
 # -----------------------------------------------
-    lower_blue1 = np.array([90, 50, 50])
-    upper_blue1 = np.array([110, 255, 255])
+    lower_blue1 = np.array([92, 161, 173])
+    upper_blue1 = np.array([179, 255, 255])
     
-    lower_blue2 = np.array([110, 50, 50])
-    upper_blue2 = np.array([130, 255, 255])
-    
-    mask3 = cv2.inRange(hsv, lower_blue1, upper_blue1) + cv2.inRange(hsv, lower_blue2, upper_blue2)
+    mask3 = cv2.inRange(hsv, lower_blue1, upper_blue1)
 # -----------------------------------------------
-    lower_yellow1 = np.array([15, 50, 50])
-    upper_yellow1 = np.array([25, 255, 255])
+    lower_yellow1 = np.array([18, 30, 195])
+    upper_yellow1 = np.array([63, 139, 255])
 
-    lower_yellow2 = np.array([25, 50, 50])
-    upper_yellow2 = np.array([35, 255, 255])
-
-    mask4 = cv2.inRange(hsv, lower_yellow1, upper_yellow1) + cv2.inRange(hsv, lower_yellow2, upper_yellow2)
+    mask4 = cv2.inRange(hsv, lower_yellow1, upper_yellow1)
 # -----------------------------------------------
     mask_all = cv2.bitwise_or(mask1, mask2)
     mask_all = cv2.bitwise_or(mask_all, mask3)
