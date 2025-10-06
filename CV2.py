@@ -18,7 +18,7 @@ def find_centroid(mask, frame, color_name, color_bgr):
 cap = cv2.VideoCapture(0)
 
 if not cap.isOpened():
-    print("cann't connected the camera")
+    print("⚠️❗cann't connected the camera❌")
     exit()
 
 while True:
